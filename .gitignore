@@ -1,0 +1,12 @@
+node_modules/
+.DS_Store
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.log
+*.tsbuildinfo
+.openai/
+
+# HTML, CSS, and favicon in dist are source assets; only JavaScript is generated.
+/dist/app.js

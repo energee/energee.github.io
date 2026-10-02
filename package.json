@@ -1,0 +1,15 @@
+{
+  "name": "energee",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "bun run build && bun run --parallel dev:serve dev:types",
+    "dev:serve": "bun --port 8000 ./dist/index.html",
+    "dev:types": "tsc --watch --preserveWatchOutput",
+    "build": "tsc",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^7.0.2"
+  }
+}
