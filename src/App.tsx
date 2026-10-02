@@ -123,6 +123,27 @@ export function App() {
           <div className="control-strip"><strong>Powerful agents. Clean interfaces.</strong><p>Review exceptions, approve important actions, and understand what happened without digging through logs.</p></div>
         </section>
 
+        <section id="phone-agents" className="section" aria-labelledby="phone-agents-heading">
+          <div className="section-heading">
+            <div><span className="eyebrow dark">AI phone agents</span><h2 id="phone-agents-heading">Answer incoming calls.<br />Follow up with customers.</h2></div>
+            <p>We build AI phone agents that talk with your customers, handle routine requests, and connect each conversation to your business systems. Give callers a useful next step, with a handoff to your team when a person is needed.</p>
+          </div>
+          <div className="steps grid-cols-1 min-[651px]:grid-cols-2">
+            <article>
+              <Badge variant="outline" className="mb-4">Inbound calls</Badge>
+              <h3>When customers call you</h3>
+              <p>Answer common questions, book appointments, collect the details of a request, and route callers to the right person—even when your team is busy.</p>
+              <p className="mt-4 text-sm text-muted-foreground">Customer questions · Appointment booking · Call routing</p>
+            </article>
+            <article>
+              <Badge variant="outline" className="mb-4">Outbound calls</Badge>
+              <h3>When you need to follow up</h3>
+              <p>Follow up on inquiries, confirm appointments, and check in after a service. Capture the outcome and update your records so your team knows what needs to happen next.</p>
+              <p className="mt-4 text-sm text-muted-foreground">Inquiry follow-ups · Appointment reminders · Service check-ins</p>
+            </article>
+          </div>
+        </section>
+
         <section className="section" aria-labelledby="connected-work-heading">
           <div className="section-heading">
             <div><span className="eyebrow dark">Human review</span><h2 id="connected-work-heading">Let the agent cook.<br />Keep the judgment.</h2></div>
@@ -159,7 +180,7 @@ export function App() {
         <form id="brief-form" onSubmit={downloadBrief} className="grid gap-4">
           <div className="grid gap-2"><Label htmlFor="brief">What process would you like to improve?</Label><Textarea id="brief" rows={5} placeholder="We spend hours each week checking orders across three systems…" required value={brief} onChange={event => setBrief(event.target.value)} /></div>
           <div className="grid gap-2"><Label htmlFor="area">Where does it fit?</Label><NativeSelect id="area" className="w-full" value={area} onChange={event => setArea(event.target.value)}>
-            <NativeSelectOption>Operations &amp; automation</NativeSelectOption><NativeSelectOption>Software engineering</NativeSelectOption><NativeSelectOption>Search &amp; knowledge</NativeSelectOption><NativeSelectOption>Something else</NativeSelectOption>
+            <NativeSelectOption>Operations &amp; automation</NativeSelectOption><NativeSelectOption>AI phone agents</NativeSelectOption><NativeSelectOption>Software engineering</NativeSelectOption><NativeSelectOption>Search &amp; knowledge</NativeSelectOption><NativeSelectOption>Something else</NativeSelectOption>
           </NativeSelect></div>
           <Button type="submit">Download project brief</Button>
           <p id="brief-status" role="status" className="text-sm text-muted-foreground">{briefStatus}</p>
