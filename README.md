@@ -47,5 +47,14 @@ property types. `skipLibCheck` skips third-party declarations because Radix's
 Select declarations conflict with exact optional properties; application and
 component source remain checked.
 
-The contact form downloads a local brief and does not submit it. The backend
-is deferred.
+Contact opens an email draft with the selected service and optional workflow
+description. The user reviews and sends it in their email app; no backend is
+required. `contactEmail` in `src/App.tsx` is currently the clearly labeled
+placeholder `hello@energee.example`. Replace it with the approved public address
+before launch. The backend remains deferred.
+
+The MGR examples describe functionality documented in its public staff guide.
+They do not establish measured savings or phone-agent performance. Approved
+customer quotes, screenshots, call recordings, team details, and indicative
+pricing can be added when supplied; do not invent evidence or publish mock
+results as customer outcomes.
