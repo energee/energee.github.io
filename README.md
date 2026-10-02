@@ -47,5 +47,5 @@ property types. `skipLibCheck` skips third-party declarations because Radix's
 Select declarations conflict with exact optional properties; application and
 component source remain checked.
 
-The workflow is illustrative. The contact form downloads a local brief and
-does not submit it. The backend is deferred.
+The contact form downloads a local brief and does not submit it. The backend
+is deferred.

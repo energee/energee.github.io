@@ -20,12 +20,6 @@ export async function smoke(page) {
   await page.getByRole('button', { name: 'Inside the architecture' }).click();
   assert(await page.getByRole('button', { name: 'Inside the architecture' }).getAttribute('aria-expanded') === 'true', 'Architecture did not expand');
   await page.getByRole('button', { name: 'Inside the architecture' }).click();
-  await page.locator('#approve').click();
-  assert(!await page.locator('#approve').isEnabled(), 'Approval button stayed enabled');
-  assert(await page.locator('#reset').isVisible(), 'Reset button stayed hidden');
-  await page.locator('#reset').click();
-  assert(await page.locator('#approve').isEnabled(), 'Reset did not restore approval');
-  assert(!await page.locator('#reset').isVisible(), 'Reset button stayed visible');
   await page.getByRole('button', { name: 'Let’s talk', exact: true }).click();
   assert(await page.getByRole('dialog').isVisible(), 'Project brief did not open');
   await page.getByLabel('What process would you like to improve?').fill('Strict TypeScript smoke check');

@@ -1,14 +1,12 @@
 import { useEffect, useRef, useState, type FormEvent, type MouseEvent } from "react";
-import { Check, Clock, Pause, Play, TriangleAlert } from "lucide-react";
+import { Pause, Play } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select";
 import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList } from "@/components/ui/navigation-menu";
-import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { services } from "./services";
@@ -30,7 +28,6 @@ export function App() {
   useEffect(() => {
     if (canvas.current && motionButton.current) return startAsciiField(canvas.current, motionButton.current);
   }, []);
-  const [approved, setApproved] = useState(false);
   const [brief, setBrief] = useState("");
   const [area, setArea] = useState("Operations & automation");
   const [briefStatus, setBriefStatus] = useState("");
@@ -126,29 +123,16 @@ export function App() {
           <div className="control-strip"><strong>Powerful agents. Clean interfaces.</strong><p>Review exceptions, approve important actions, and understand what happened without digging through logs.</p></div>
         </section>
 
-        <section className="workflow-section">
-          <div className="workflow-copy"><span className="eyebrow dark">Human review</span><h2>Let the agent work.<br />Keep the judgment.</h2><p>Good automation knows when to stop. We design clear review points for exceptions, changing conditions, and decisions that need a person.</p><p className="demo-caption">Try the order-review example. It illustrates an approval pattern, not a live integration.</p></div>
-          <section className="workflow" aria-label="Interactive illustrative agent workflow">
-            <div className="window-head"><span>WORKFLOW / ORDER OPERATIONS</span><Badge variant="outline">Interactive demo</Badge></div>
-            <div className="flow-intro"><span className="mono">Incoming event</span><strong>Purchase order received</strong><p>Extract details. Check inventory. Find exceptions.</p></div>
-            <div className="agent-node"><span className="node-icon" aria-hidden="true">E</span><div><strong>Operations agent</strong><small>Checks context across connected systems</small></div></div>
-            <Alert className="my-4 border-primary/30 bg-primary/5">
-              <TriangleAlert aria-hidden="true" />
-              <AlertTitle>One decision needs you</AlertTitle>
-              <AlertDescription>
-                <p>The requested delivery date is unavailable. Review the proposed alternative before confirming.</p>
-                <div className="my-3 grid w-full grid-cols-2 gap-4"><div><span className="text-xs text-muted-foreground">REQUESTED</span><p className="font-semibold text-foreground">Thursday</p></div><div><span className="text-xs text-muted-foreground">PROPOSED</span><p className="font-semibold text-foreground">Friday</p></div></div>
-                <Button id="approve" disabled={approved} onClick={() => setApproved(true)}>{approved ? "Approved in demo" : "Approve proposed date"}</Button>
-              </AlertDescription>
-            </Alert>
-            <div className="flow-log" aria-live="polite">
-              {approved ? <Check className="size-4" aria-hidden="true" /> : <Clock className="size-4" aria-hidden="true" />}
-              <span>{approved ? "Review recorded · Ready for next step" : "Awaiting review · Nothing sent"}</span>
-              {approved && <Button id="reset" variant="link" size="sm" className="ml-auto" onClick={() => setApproved(false)}>Reset</Button>}
-            </div>
-            <Separator className="mt-4" />
-            <p className="demo-foot">Illustrative workflow · No live systems connected</p>
-          </section>
+        <section className="section" aria-labelledby="connected-work-heading">
+          <div className="section-heading">
+            <div><span className="eyebrow dark">Human review</span><h2 id="connected-work-heading">Let the agent cook.<br />Keep the judgment.</h2></div>
+            <p>Copying data, chasing updates, and checking whether the next step happened is work a connected system should handle. We build that system, with clear review points for the decisions that need your team.</p>
+          </div>
+          <div className="steps">
+            <article><h3>Keep routine work moving</h3><p>Connect the request, the relevant records, and the next action. Move information between your tools without making someone carry it through every step.</p></article>
+            <article><h3>Bring exceptions with context</h3><p>When information is missing or rules conflict, bring the issue, supporting records, and proposed next step to the person who can resolve it.</p></article>
+            <article><h3>Make changes traceable</h3><p>Keep a record of the inputs, actions, and approvals so your team can understand what happened and investigate when something goes wrong.</p></article>
+          </div>
         </section>
 
         <section id="approach" className="section approach">
