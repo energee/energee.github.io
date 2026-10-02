@@ -57,7 +57,7 @@ export function App() {
             <NavigationMenuItem><NavigationMenuLink href="#approach">Approach</NavigationMenuLink></NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
-        <DialogTrigger asChild><Button onClick={rememberContactTrigger} variant="outline" size="sm" className="ml-auto min-[651px]:ml-0">Let’s talk</Button></DialogTrigger>
+        <DialogTrigger asChild><Button onClick={rememberContactTrigger} variant="ghost" size="sm" className="ml-auto min-[651px]:ml-0">Let’s talk</Button></DialogTrigger>
       </header>
       <main>
         <section className="hero">
@@ -110,7 +110,7 @@ export function App() {
           <div className="section-heading"><div><span className="eyebrow dark">Services</span><h2>Practical applications of AI</h2></div><p>Connect the systems you already use. Give agents useful work. Keep the decisions that matter in your hands.</p></div>
           <Tabs defaultValue="ops">
             <TabsList aria-label="Service areas" className="h-auto w-full justify-start overflow-x-auto">
-              {serviceAreas.map(([key, title]) => <TabsTrigger key={key} value={key} className="px-3 py-3 text-xs sm:text-sm">{title}</TabsTrigger>)}
+              {serviceAreas.map(([key, title]) => <TabsTrigger key={key} value={key} className="border-0 px-3 py-3 text-xs sm:text-sm">{title}</TabsTrigger>)}
             </TabsList>
             {serviceAreas.map(([key]) => (
               <TabsContent key={key} value={key}>
@@ -130,13 +130,13 @@ export function App() {
           </div>
           <div className="steps grid-cols-1 min-[651px]:grid-cols-2">
             <article>
-              <Badge variant="outline" className="mb-4">Inbound calls</Badge>
+              <Badge variant="secondary" className="mb-4">Inbound calls</Badge>
               <h3>Get callers to what they need</h3>
               <p>Let customers explain what they need in their own words. Help them get an answer, book or reschedule an appointment, or reach the right person—with the context carried forward.</p>
               <p className="mt-4 text-sm text-muted-foreground">Customer questions · Appointment booking · Call routing</p>
             </article>
             <article>
-              <Badge variant="outline" className="mb-4">Outbound calls</Badge>
+              <Badge variant="secondary" className="mb-4">Outbound calls</Badge>
               <h3>Make every follow-up useful</h3>
               <p>Confirm an appointment, resolve an open request, or agree on the next step. Keep calls short and relevant, capture the outcome, and update your records so customers don’t have to repeat themselves.</p>
               <p className="mt-4 text-sm text-muted-foreground">Inquiry follow-ups · Appointment reminders · Service check-ins</p>
