@@ -125,22 +125,26 @@ export function App() {
 
         <section id="phone-agents" className="section" aria-labelledby="phone-agents-heading">
           <div className="section-heading">
-            <div><span className="eyebrow dark">AI phone agents</span><h2 id="phone-agents-heading">Answer incoming calls.<br />Follow up with customers.</h2></div>
-            <p>We build AI phone agents that talk with your customers, handle routine requests, and connect each conversation to your business systems. Give callers a useful next step, with a handoff to your team when a person is needed.</p>
+            <div><span className="eyebrow dark">AI phone agents</span><h2 id="phone-agents-heading">Natural conversations.<br />Faster resolutions.</h2></div>
+            <p>We build AI phone agents for natural speech, quick responses, and getting things done. Connected to your business systems, they can turn a conversation into a booking, an answer, or a completed next step.</p>
           </div>
           <div className="steps grid-cols-1 min-[651px]:grid-cols-2">
             <article>
               <Badge variant="outline" className="mb-4">Inbound calls</Badge>
-              <h3>When customers call you</h3>
-              <p>Answer common questions, book appointments, collect the details of a request, and route callers to the right person—even when your team is busy.</p>
+              <h3>Get callers to what they need</h3>
+              <p>Let customers explain what they need in their own words. Help them get an answer, book or reschedule an appointment, or reach the right person—with the context carried forward.</p>
               <p className="mt-4 text-sm text-muted-foreground">Customer questions · Appointment booking · Call routing</p>
             </article>
             <article>
               <Badge variant="outline" className="mb-4">Outbound calls</Badge>
-              <h3>When you need to follow up</h3>
-              <p>Follow up on inquiries, confirm appointments, and check in after a service. Capture the outcome and update your records so your team knows what needs to happen next.</p>
+              <h3>Make every follow-up useful</h3>
+              <p>Confirm an appointment, resolve an open request, or agree on the next step. Keep calls short and relevant, capture the outcome, and update your records so customers don’t have to repeat themselves.</p>
               <p className="mt-4 text-sm text-muted-foreground">Inquiry follow-ups · Appointment reminders · Service check-ins</p>
             </article>
+          </div>
+          <div className="control-strip">
+            <strong>Reduce your reliance on outsourced call centers.</strong>
+            <p>Automate routine inbound and outbound calls to reduce outsourced call volume and staffing overhead. Keep your people focused on complex questions and customer relationships that need a human.</p>
           </div>
         </section>
 
