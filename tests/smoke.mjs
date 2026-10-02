@@ -42,6 +42,12 @@ export async function smoke(page) {
   await page.locator('#brief').press('Escape');
   await page.locator('[data-slot="dialog-content"]').waitFor({ state: 'detached' });
   assert(!await page.getByRole('dialog').isVisible(), 'Escape did not close project brief');
-  assert(!await page.locator('#motion-toggle').isVisible(), 'Unrequested motion control present');
+  const motion = page.locator('#motion-toggle');
+  if (await motion.isEnabled()) {
+    await motion.click();
+    assert(await motion.getAttribute('aria-pressed') === 'true', 'Animation did not pause');
+    await motion.click();
+    assert(await motion.getAttribute('aria-pressed') === 'false', 'Animation did not resume');
+  }
   assert(await page.evaluate(() => [...document.querySelectorAll('button,textarea,select,label')].every(element => element.hasAttribute('data-slot'))), 'A UI control does not use shadcn');
 }

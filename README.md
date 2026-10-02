@@ -9,6 +9,7 @@ Open http://localhost:8000. Bun bundles the React/TypeScript source and Tailwind
 styles directly, with hot reload. A parallel TypeScript watcher reports errors.
 
     bun run typecheck
+    bun test
     bun run build
 
 The build checks strict types before generating a static site in `dist`.
@@ -25,8 +26,8 @@ registry, aliases, and CSS theme. Add components with:
 Use shadcn for every UX primitive. If the catalog has no suitable component,
 ask the user for guidance before implementing an alternative. `AGENTS.md`
 records this rule. Page content and layout use semantic HTML and CSS.
-The existing ASCII canvas is approved decoration; it runs for at most five
-seconds, respects reduced motion, and has no motion control.
+The existing ASCII canvas is approved decoration; it animates continuously,
+respects reduced motion, and has a subtle shadcn pause/play button.
 
 ## Files
 

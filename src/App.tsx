@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type FormEvent, type MouseEvent } from "react";
-import { Check, Clock, TriangleAlert } from "lucide-react";
+import { Check, Clock, Pause, Play, TriangleAlert } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
@@ -26,8 +26,9 @@ export function App() {
     contactTrigger.current = event.currentTarget;
   }
   const canvas = useRef<HTMLCanvasElement>(null);
+  const motionButton = useRef<HTMLButtonElement>(null);
   useEffect(() => {
-    if (canvas.current) return startAsciiField(canvas.current);
+    if (canvas.current && motionButton.current) return startAsciiField(canvas.current, motionButton.current);
   }, []);
   const [approved, setApproved] = useState(false);
   const [brief, setBrief] = useState("");
@@ -64,6 +65,10 @@ export function App() {
       <main>
         <section className="hero">
           <canvas ref={canvas} id="ascii-field" aria-hidden="true" />
+          <Button ref={motionButton} id="motion-toggle" variant="ghost" size="icon-sm" aria-label="Pause animation" aria-pressed={false} className="group absolute right-[5%] bottom-4 text-muted-foreground/70 hover:text-foreground">
+            <Pause aria-hidden="true" className="size-3.5 group-aria-pressed:hidden" />
+            <Play aria-hidden="true" className="hidden size-3.5 group-aria-pressed:block" />
+          </Button>
           <div className="intro-line"><span>AI WORKFLOWS &amp; SOFTWARE ENGINEERING</span><span>ENERGEE / PITTSBURGH</span></div>
           <h1>We build AI workflows <br />for the work that <br />doesn’t follow a script.</h1>
           <div className="hero-bottom-grid"><div>

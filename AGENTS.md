@@ -6,6 +6,6 @@
 - Compose installed components and customize their theme; do not invent replacement primitives.
 - If shadcn does not provide a component that fulfills the interface, ask the user for guidance before implementing an alternative.
 - Semantic page content and layout may use HTML and CSS; interactive controls must come from shadcn.
-- The user approved the existing ASCII canvas as decoration. No motion control is needed; animation stops after five seconds and respects reduced motion.
+- The user approved the existing ASCII canvas as decoration. Keep continuous animation with a subtle shadcn pause/play button; respect reduced motion.
 - Keep strict TypeScript enabled and keep startup as `bun dev`.
 - The backend is deferred.

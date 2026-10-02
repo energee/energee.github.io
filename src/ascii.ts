@@ -1,13 +1,12 @@
 // An original, procedural ASCII signal field. No tracking or external assets.
-export function startAsciiField(canvas: HTMLCanvasElement) {
+export function startAsciiField(canvas: HTMLCanvasElement, button: HTMLButtonElement) {
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
   const hero = canvas.parentElement;
   if (!hero) return;
   const reduce = matchMedia('(prefers-reduced-motion: reduce)');
   let width = 0, height = 0, frame = 0, last = 0, time = 0;
-  let inView = true;
-  const stopAt = performance.now() + 5000;
+  let inView = true, userPaused = false;
   const glyphs = ' .·:+*=#';
 
   const paint = (): void => {
@@ -45,7 +44,7 @@ export function startAsciiField(canvas: HTMLCanvasElement) {
 
   function tick(stamp: number): void {
     frame = 0;
-    if (reduce.matches || document.hidden || !inView || stamp >= stopAt) return;
+    if (userPaused || reduce.matches || document.hidden || !inView) return;
     if (stamp - last >= 80) {
       time += .08;
       paint();
@@ -57,7 +56,11 @@ export function startAsciiField(canvas: HTMLCanvasElement) {
   function sync(): void {
     if (frame) cancelAnimationFrame(frame);
     frame = 0;
-    if (!reduce.matches && !document.hidden && inView && performance.now() < stopAt) {
+    const paused = userPaused || reduce.matches;
+    button.setAttribute('aria-pressed', String(paused));
+    button.setAttribute('aria-label', reduce.matches ? 'Animation disabled by reduced motion preference' : paused ? 'Play animation' : 'Pause animation');
+    button.disabled = reduce.matches;
+    if (!paused && !document.hidden && inView) {
       frame = requestAnimationFrame(tick);
     }
   }
@@ -66,6 +69,11 @@ export function startAsciiField(canvas: HTMLCanvasElement) {
     sync();
     paint();
   };
+  const onToggle = () => {
+    userPaused = !userPaused;
+    sync();
+  };
+  button.addEventListener('click', onToggle);
   reduce.addEventListener('change', onMotionChange);
   document.addEventListener('visibilitychange', sync);
   const resizeObserver = new ResizeObserver(resize);
@@ -83,6 +91,7 @@ export function startAsciiField(canvas: HTMLCanvasElement) {
     cancelAnimationFrame(frame);
     resizeObserver.disconnect();
     intersectionObserver.disconnect();
+    button.removeEventListener('click', onToggle);
     reduce.removeEventListener('change', onMotionChange);
     document.removeEventListener('visibilitychange', sync);
   };

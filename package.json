@@ -7,7 +7,8 @@
     "dev:serve": "bun --port 8000 ./src/index.html",
     "dev:types": "tsc --watch --preserveWatchOutput",
     "build": "bun run typecheck && bun ./build.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "bun test"
   },
   "devDependencies": {
     "@types/bun": "^1.4.2",
