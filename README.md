@@ -1,37 +1,50 @@
 # Energee marketing site
 
-Source snapshot: 00aa64209f1ecce549c35ae1dac9444fc2b39992
-
 ## Run locally
-
-Install dependencies and start the Bun development server:
 
     bun install
     bun dev
 
-Open http://localhost:8000 in your browser. Startup builds the site, then watches
-TypeScript sources and serves the generated site with Bun's native HTML server.
-Type errors prevent new JavaScript from being emitted.
-
-Check strict types without emitting JavaScript:
+Open http://localhost:8000. Bun bundles the React/TypeScript source and Tailwind
+styles directly, with hot reload. A parallel TypeScript watcher reports errors.
 
     bun run typecheck
+    bun run build
 
-The browser smoke check in tests/smoke.mjs exports smoke(page). Run it against
-the locally served site with a Playwright page (or tab.playwright in browser
-automation) to check tabs and keyboard navigation, approval/reset, the project
-brief, and the motion toggle. It requires no additional site dependencies.
+The build checks strict types before generating a static site in `dist`.
+Deploy the contents of `dist`; no backend or API keys are required.
+
+## UI components
+
+All UI controls use official [shadcn/ui](https://ui.shadcn.com/docs/components)
+components installed into `src/components/ui`. `components.json` configures the
+registry, aliases, and CSS theme. Add components with:
+
+    bunx --bun shadcn@latest add <component>
+
+Use shadcn for every UX primitive. If the catalog has no suitable component,
+ask the user for guidance before implementing an alternative. `AGENTS.md`
+records this rule. Page content and layout use semantic HTML and CSS.
+The existing ASCII canvas is approved decoration; it runs for at most five
+seconds, respects reduced motion, and has no motion control.
 
 ## Files
 
-- dist/index.html: page structure and content
-- dist/style.css: styling and responsive layouts
-- src/app.ts: strict TypeScript for service tabs, demo approval, project-brief download, ASCII animation
-- dist/app.js: generated browser JavaScript; edit src/app.ts and rebuild
-- tsconfig.json: strict checking, including unchecked indexed access and exact optional properties
-- dist/favicon.svg: favicon
-- .openai/hosting.json: existing private Sites deployment identity
+- src/App.tsx: page composition using shadcn components
+- src/components/ui/: official shadcn component source
+- src/services.ts: service content
+- src/ascii.ts: decorative signal field and observer cleanup
+- src/index.html: HTML entry point and page metadata
+- src/styles.css: Tailwind and shadcn theme tokens
+- src/site.css: responsive page layout and typography
+- build.ts: Bun static production build
+- tests/smoke.mjs: browser interaction check; exports smoke(page) for a Playwright page or tab.playwright
+- .openai/hosting.json: ignored local Sites deployment identity
 
-To host elsewhere, run bun run build and deploy the contents of dist as static files.
+TypeScript uses strict checking, unchecked indexed access, and exact optional
+property types. `skipLibCheck` skips third-party declarations because Radix's
+Select declarations conflict with exact optional properties; application and
+component source remain checked.
 
-The workflow is illustrative. The contact form downloads a local brief and does not submit it. No backend or API keys are required.
+The workflow is illustrative. The contact form downloads a local brief and
+does not submit it. The backend is deferred.

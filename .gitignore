@@ -8,5 +8,4 @@ node_modules/
 *.tsbuildinfo
 .openai/
 
-# HTML, CSS, and favicon in dist are source assets; only JavaScript is generated.
-/dist/app.js
+dist/

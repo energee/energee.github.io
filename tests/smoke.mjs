@@ -1,18 +1,25 @@
-// Run against the built site using a Playwright-compatible page or tab.playwright.
+// Run against the site using a Playwright-compatible page or tab.playwright.
 export async function smoke(page) {
   const assert = (value, message) => { if (!value) throw new Error(message); };
-  const selected = key => page.locator(`#tab-${key}`).getAttribute('aria-selected');
-  await page.locator('#tab-eng').click();
-  assert(await selected('eng') === 'true', 'Engineering tab did not select');
-  assert((await page.locator('#service-panel').innerText()).includes('Agent-assisted coding'), 'Wrong tab content');
-  await page.locator('#tab-eng').press('End');
-  assert(await selected('knowledge') === 'true', 'End key did not select last tab');
-  await page.locator('#tab-knowledge').press('ArrowRight');
-  assert(await selected('ops') === 'true', 'Arrow key did not wrap to first tab');
-  await page.locator('#tab-ops').press('ArrowLeft');
-  assert(await selected('knowledge') === 'true', 'Arrow key did not wrap to last tab');
-  await page.locator('#tab-knowledge').press('Home');
-  assert(await selected('ops') === 'true', 'Home key did not select first tab');
+  const tab = name => page.getByRole('tab', { name, exact: true });
+  const selected = async name => {
+    await tab(name).and(page.locator('[aria-selected="true"]')).waitFor({ state: 'visible' });
+    return tab(name).getAttribute('aria-selected');
+  };
+  await tab('AI for engineering').click();
+  assert(await selected('AI for engineering') === 'true', 'Engineering tab did not select');
+  assert((await page.getByRole('tabpanel').innerText()).includes('Agent-assisted coding'), 'Wrong tab content');
+  await tab('AI for engineering').press('End');
+  assert(await selected('AI search & knowledge') === 'true', 'End key did not select last tab');
+  await tab('AI search & knowledge').press('ArrowRight');
+  assert(await selected('AI for operations') === 'true', 'Arrow key did not wrap to first tab');
+  await tab('AI for operations').press('ArrowLeft');
+  assert(await selected('AI search & knowledge') === 'true', 'Arrow key did not wrap to last tab');
+  await tab('AI search & knowledge').press('Home');
+  assert(await selected('AI for operations') === 'true', 'Home key did not select first tab');
+  await page.getByRole('button', { name: 'Inside the architecture' }).click();
+  assert(await page.getByRole('button', { name: 'Inside the architecture' }).getAttribute('aria-expanded') === 'true', 'Architecture did not expand');
+  await page.getByRole('button', { name: 'Inside the architecture' }).click();
   await page.locator('#approve').click();
   assert(!await page.locator('#approve').isEnabled(), 'Approval button stayed enabled');
   assert(await page.locator('#reset').isVisible(), 'Reset button stayed hidden');
@@ -20,17 +27,21 @@ export async function smoke(page) {
   assert(await page.locator('#approve').isEnabled(), 'Reset did not restore approval');
   assert(!await page.locator('#reset').isVisible(), 'Reset button stayed visible');
   await page.getByRole('button', { name: 'Let’s talk', exact: true }).click();
-  assert(await page.locator('#contact').isVisible(), 'Project brief did not open');
+  assert(await page.getByRole('dialog').isVisible(), 'Project brief did not open');
   await page.getByLabel('What process would you like to improve?').fill('Strict TypeScript smoke check');
+  await page.getByLabel('Where does it fit?').selectOption('Software engineering');
   await page.getByRole('button', { name: 'Download project brief' }).click();
   assert((await page.locator('#brief-status').innerText()).includes('Nothing was sent.'), 'Brief did not download');
-  await page.getByRole('button', { name: 'Close project brief' }).click();
-  assert(!await page.locator('#contact').isVisible(), 'Project brief did not close');
-  const motion = page.locator('#motion-toggle');
-  if (await motion.isEnabled()) {
-    const before = await motion.getAttribute('aria-pressed');
-    await motion.click();
-    assert(await motion.getAttribute('aria-pressed') !== before, 'Animation did not toggle');
-    await motion.click();
-  }
+  await page.getByRole('button', { name: 'Close', exact: true }).click();
+  await page.locator('[data-slot="dialog-content"]').waitFor({ state: 'detached' });
+  assert(!await page.getByRole('dialog').isVisible(), 'Project brief did not close');
+  assert(await page.evaluate(() => document.activeElement?.textContent) === 'Let’s talk', 'Dialog did not restore focus to its opener');
+  await page.getByRole('button', { name: 'Let’s talk', exact: true }).click();
+  await page.getByRole('dialog').waitFor({ state: 'visible' });
+  assert(await page.locator('#brief').evaluate(element => element.value) === 'Strict TypeScript smoke check', 'Closing the dialog lost the brief');
+  await page.locator('#brief').press('Escape');
+  await page.locator('[data-slot="dialog-content"]').waitFor({ state: 'detached' });
+  assert(!await page.getByRole('dialog').isVisible(), 'Escape did not close project brief');
+  assert(!await page.locator('#motion-toggle').isVisible(), 'Unrequested motion control present');
+  assert(await page.evaluate(() => [...document.querySelectorAll('button,textarea,select,label')].every(element => element.hasAttribute('data-slot'))), 'A UI control does not use shadcn');
 }
