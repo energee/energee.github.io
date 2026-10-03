@@ -75,7 +75,7 @@ export function App() {
 
         <section id="phone-agents" className="section" aria-labelledby="phone-agents-heading">
           <div className="section-heading">
-            <div><span className="eyebrow dark">AI phone agents</span><h2 id="phone-agents-heading">A helpful voice.<br />A completed task.</h2></div>
+            <div><span className="eyebrow">AI phone agents</span><h2 id="phone-agents-heading">A helpful voice.<br />A completed task.</h2></div>
             <p>Customers call to get something done. We build phone agents around that outcome: a booked appointment, an answered question, or a useful follow-up. Natural speech and quick responses, connected to the systems that make the next step happen.</p>
           </div>
           <div className="steps grid-cols-1 min-[651px]:grid-cols-2">
@@ -134,7 +134,7 @@ export function App() {
 
         <section className="section" aria-labelledby="connected-work-heading">
           <div className="section-heading">
-            <div><span className="eyebrow dark">Human review, in practice</span><h2 id="connected-work-heading">Let the agent cook.<br />Keep the judgment.</h2></div>
+            <div><span className="eyebrow">Human review, in practice</span><h2 id="connected-work-heading">Let the agent cook.<br />Keep the judgment.</h2></div>
             <p>In MGR, an agent can prepare a stock movement, but it cannot commit it. The person sees the proposed change and decides whether to proceed. That is the kind of boundary we build around consequential actions.</p>
           </div>
           <div className="steps">
@@ -145,7 +145,7 @@ export function App() {
         </section>
 
         <section id="capabilities" className="section capabilities">
-          <div className="section-heading"><div><span className="eyebrow dark">Beyond the phone</span><h2>Take the busywork<br />out of daily operations.</h2></div><p>An off-the-shelf tool can be enough for a simple task. When the work crosses systems, needs your business rules, or requires a usable review process, we build the connections and the workflow around it.</p></div>
+          <div className="section-heading"><div><span className="eyebrow">Beyond the phone</span><h2>Take the busywork<br />out of daily operations.</h2></div><p>An off-the-shelf tool can be enough for a simple task. When the work crosses systems, needs your business rules, or requires a usable review process, we build the connections and the workflow around it.</p></div>
           <Tabs defaultValue="ops">
             <TabsList aria-label="Service areas" className="h-auto w-full justify-start overflow-x-auto">
               {serviceAreas.map(([key, title]) => <TabsTrigger key={key} value={key} className="border-0 px-3 py-3 text-xs sm:text-sm">{title}</TabsTrigger>)}
@@ -161,7 +161,7 @@ export function App() {
         </section>
 
         <section id="approach" className="section approach">
-          <div className="section-heading"><div><span className="eyebrow dark">Your first engagement</span><h2>Start with one workflow.<br />Earn the next one.</h2></div><p>Choose a recurring task with a clear outcome. Agree the scope, cost, and success criteria before building, then decide whether to expand based on what the first workflow achieves.</p></div>
+          <div className="section-heading"><div><span className="eyebrow">Your first engagement</span><h2>Start with one workflow.<br />Earn the next one.</h2></div><p>Choose a recurring task with a clear outcome. Agree the scope, cost, and success criteria before building, then decide whether to expand based on what the first workflow achieves.</p></div>
           <div className="steps">
             <article><h3>Define the result</h3><p>Map the current process and establish a baseline. Your scope sets out the integrations, your team’s involvement, deliverables, proposed timeline, and how success will be measured.</p></article>
             <article><h3>Build and evaluate</h3><p>Implement the bounded workflow and its review points. Test real tasks and failure cases with your team, then compare the results with the agreed baseline.</p></article>
@@ -176,7 +176,7 @@ export function App() {
             ))}
           </Accordion>
         </section>
-        <section className="cta"><span className="eyebrow dark">Start with the work</span><h2>Which task is costing<br />your team too much time?</h2><DialogTrigger asChild><Button onClick={rememberContactTrigger} size="lg" className="mt-8">Discuss your first workflow</Button></DialogTrigger><p>Bring one recurring task, the tools involved, and what a better result would look like.</p></section>
+        <section className="cta"><span className="eyebrow">Start with the work</span><h2>Which task is costing<br />your team too much time?</h2><DialogTrigger asChild><Button onClick={rememberContactTrigger} size="lg" className="mt-8">Discuss your first workflow</Button></DialogTrigger><p>Bring one recurring task, the tools involved, and what a better result would look like.</p></section>
       </main>
       <footer><Button variant="link" asChild className="brand h-auto p-0 text-[28px] font-bold tracking-[-1.7px] text-foreground hover:no-underline"><a href="#">energee</a></Button><span>AI for customer calls and business operations.</span><span>© 2026 Energee · Pittsburgh</span></footer>
 

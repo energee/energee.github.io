@@ -16,7 +16,7 @@ const buttonVariants = cva(
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost:
-          "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
+          "hover:bg-primary/5 hover:text-foreground",
         link: "text-primary underline-offset-4 hover:underline",
       },
       size: {
@@ -30,6 +30,9 @@ const buttonVariants = cva(
         "icon-lg": "size-10",
       },
     },
+    compoundVariants: [
+      { variant: "ghost", size: ["default", "sm", "lg"], class: "px-6 has-[>svg]:px-6" },
+    ],
     defaultVariants: {
       variant: "default",
       size: "default",

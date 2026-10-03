@@ -28,6 +28,11 @@ ask the user for guidance before implementing an alternative. `AGENTS.md`
 records this rule. Page content and layout use semantic HTML and CSS.
 The existing ASCII canvas is approved decoration; it animates continuously,
 respects reduced motion, and has a subtle shadcn pause/play button.
+The page follows the browser/preview light or dark preference. Page content,
+shadcn controls, and the canvas share theme colors; the root also accepts
+`class="light"` / `class="dark"` or `data-theme` overrides. Browser checks export
+`themeSmoke(page, scheme)` to verify both palettes, text contrast, and ghost
+button spacing.
 
 ## Files
 

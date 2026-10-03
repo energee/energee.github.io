@@ -54,3 +54,30 @@ export async function smoke(page) {
   }
   assert(await page.evaluate(() => [...document.querySelectorAll('button,textarea,select,label')].every(element => element.hasAttribute('data-slot'))), 'A UI control does not use shadcn');
 }
+
+// Run with light and dark preferences, or the corresponding explicit root theme.
+export async function themeSmoke(page, scheme) {
+  const styles = await page.evaluate(() => ({
+    background: getComputedStyle(document.body).backgroundColor,
+    text: [...document.querySelectorAll('h1,h2,.hero-copy,.section-heading>p,.case-row p,.service p,.service .example,.steps p,footer>span')].map(element => getComputedStyle(element).color),
+    ghost: [...document.querySelectorAll('[data-variant="ghost"]:not([data-size^="icon"])')].map(element => ({
+      left: getComputedStyle(element).paddingLeft,
+      right: getComputedStyle(element).paddingRight,
+      border: getComputedStyle(element).borderLeftWidth,
+    })),
+  }));
+  const luminance = color => {
+    const rgb = color.match(/[\d.]+/g).slice(0, 3).map(value => {
+      const channel = Number(value) / 255;
+      return channel <= .04045 ? channel / 12.92 : ((channel + .055) / 1.055) ** 2.4;
+    });
+    return rgb[0] * .2126 + rgb[1] * .7152 + rgb[2] * .0722;
+  };
+  const background = luminance(styles.background);
+  if (scheme === 'light' ? background < .9 : background > .05) throw new Error(`Wrong ${scheme} background: ${styles.background}`);
+  for (const color of styles.text) {
+    const text = luminance(color);
+    if ((Math.max(text, background) + .05) / (Math.min(text, background) + .05) < 4.5) throw new Error(`Unreadable ${scheme} text: ${color}`);
+  }
+  if (!styles.ghost.length || styles.ghost.some(button => button.left !== '24px' || button.right !== '24px' || button.border !== '0px')) throw new Error('Ghost button spacing or border regressed');
+}

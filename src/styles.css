@@ -2,7 +2,12 @@
 @import "tw-animate-css";
 @import "./site.css" layer(base);
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark {
+  &:where(:root.dark *, :root[data-theme="dark"] *) { @slot; }
+  @media (prefers-color-scheme: dark) {
+    &:where(:root:not(.light):not([data-theme="light"]) *) { @slot; }
+  }
+}
 
 @theme inline {
   --color-background: var(--background);
@@ -30,27 +35,31 @@
 }
 
 :root {
-  color-scheme: dark;
+  color-scheme: light dark;
   --radius: 0.375rem;
-  --background: #101210;
-  --foreground: #e9eee6;
-  --card: #181e16;
-  --card-foreground: #e9eee6;
-  --popover: #181e16;
-  --popover-foreground: #e9eee6;
-  --primary: #d5f568;
-  --primary-foreground: #172011;
-  --secondary: #27331f;
-  --secondary-foreground: #e9eee6;
-  --muted: #20281c;
-  --muted-foreground: #b0bda5;
-  --accent: #344127;
-  --accent-foreground: #e9eee6;
-  --destructive: #f87171;
-  --border: #35432d;
-  --input: #586d45;
-  --ring: #d5f568;
+  --background: light-dark(#fcfcfa, #101210);
+  --foreground: light-dark(#151715, #e9eee6);
+  --card: light-dark(#f0f3eb, #181e16);
+  --card-foreground: var(--foreground);
+  --popover: var(--card);
+  --popover-foreground: var(--foreground);
+  --primary: light-dark(#47610f, #d5f568);
+  --primary-foreground: light-dark(#fcfcfa, #172011);
+  --secondary: light-dark(#e5eadc, #27331f);
+  --secondary-foreground: var(--foreground);
+  --muted: light-dark(#eef1e8, #20281c);
+  --muted-foreground: light-dark(#526048, #b0bda5);
+  --accent: light-dark(#e4edcf, #344127);
+  --accent-foreground: var(--foreground);
+  --destructive: light-dark(#b91c1c, #f87171);
+  --border: light-dark(#d0d8c6, #35432d);
+  --input: light-dark(#859473, #586d45);
+  --ring: var(--primary);
+  --signal: light-dark(#47610f, #b7da83);
 }
+
+:root.light, :root[data-theme="light"] { color-scheme: light; }
+:root.dark, :root[data-theme="dark"] { color-scheme: dark; }
 
 @layer base {
   * { @apply border-border outline-ring/50; }

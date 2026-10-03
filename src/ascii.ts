@@ -5,6 +5,7 @@ export function startAsciiField(canvas: HTMLCanvasElement, button: HTMLButtonEle
   const hero = canvas.parentElement;
   if (!hero) return;
   const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+  const scheme = matchMedia('(prefers-color-scheme: dark)');
   let width = 0, height = 0, frame = 0, last = 0, time = 0;
   let inView = true, userPaused = false;
   const glyphs = ' .·:+*=#';
@@ -14,6 +15,7 @@ export function startAsciiField(canvas: HTMLCanvasElement, button: HTMLButtonEle
     const gap = 12, cols = Math.ceil(width / gap), rows = Math.ceil(height / 15);
     ctx.font = '10px monospace';
     ctx.textBaseline = 'middle';
+    ctx.fillStyle = getComputedStyle(canvas).color;
     for (let y = 0; y < rows; y++) {
       for (let x = 0; x < cols; x++) {
         const nx = x / cols, ny = y / rows;
@@ -25,7 +27,7 @@ export function startAsciiField(canvas: HTMLCanvasElement, button: HTMLButtonEle
         if (strength < .14 || grain < -.50) continue;
         const index = Math.min(glyphs.length - 1, Math.floor(strength * (glyphs.length - 1)));
         const alpha = .1 + strength * .4;
-        ctx.fillStyle = `rgba(183,218,131,${alpha})`;
+        ctx.globalAlpha = alpha;
         ctx.fillText(glyphs.charAt(index), x * gap, y * 15);
       }
     }
@@ -75,6 +77,7 @@ export function startAsciiField(canvas: HTMLCanvasElement, button: HTMLButtonEle
   };
   button.addEventListener('click', onToggle);
   reduce.addEventListener('change', onMotionChange);
+  scheme.addEventListener('change', paint);
   document.addEventListener('visibilitychange', sync);
   const resizeObserver = new ResizeObserver(resize);
   resizeObserver.observe(hero);
@@ -93,6 +96,7 @@ export function startAsciiField(canvas: HTMLCanvasElement, button: HTMLButtonEle
     intersectionObserver.disconnect();
     button.removeEventListener('click', onToggle);
     reduce.removeEventListener('change', onMotionChange);
+    scheme.removeEventListener('change', paint);
     document.removeEventListener('visibilitychange', sync);
   };
 }

@@ -10,14 +10,18 @@ test("animation continues beyond five seconds, pauses, resumes, and respects red
     setAttribute: (name: string, value: string) => attributes.set(name, value),
   });
   const media = Object.assign(new EventTarget(), { matches: false });
+  const scheme = new EventTarget();
+  let signal = 'rgb(183, 218, 131)';
+  const context = { clearRect: () => paints++, setTransform() {}, fillText() {}, fillStyle: '' };
   const canvas = {
-    getContext: () => ({ clearRect: () => paints++, setTransform() {}, fillText() {} }),
+    getContext: () => context,
     parentElement: { getBoundingClientRect: () => ({ width: 24, height: 30 }) },
   };
   class Observer { observe() {} disconnect() {} }
   const globals = {
+    getComputedStyle: () => ({ color: signal }),
     document: Object.assign(new EventTarget(), { hidden: false }),
-    matchMedia: () => media,
+    matchMedia: (query: string) => query.includes('reduced-motion') ? media : scheme,
     devicePixelRatio: 1,
     requestAnimationFrame: (next: FrameRequestCallback) => { callback = next; return 1; },
     cancelAnimationFrame: () => { callback = undefined; },
@@ -44,6 +48,10 @@ test("animation continues beyond five seconds, pauses, resumes, and respects red
     media.dispatchEvent(new Event("change"));
     expect(callback).toBeUndefined();
     expect(button.disabled).toBe(true);
+    signal = 'rgb(71, 97, 15)';
+    scheme.dispatchEvent(new Event('change'));
+    expect(context.fillStyle).toBe(signal);
+    expect(callback).toBeUndefined();
     media.matches = false;
     media.dispatchEvent(new Event("change"));
     expect(callback).toBeDefined();

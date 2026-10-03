@@ -5,6 +5,7 @@
 - Add components with `bunx --bun shadcn@latest add <component>` using components.json.
 - Compose installed components and customize their theme; do not invent replacement primitives.
 - Keep buttons, tabs, and badges visually borderless. Preserve clear selected states and keyboard focus indicators.
+- Follow the browser/preview light and dark preference. Use shared theme colors for page content and controls; do not force dark mode.
 - If shadcn does not provide a component that fulfills the interface, ask the user for guidance before implementing an alternative.
 - Semantic page content and layout may use HTML and CSS; interactive controls must come from shadcn.
 - The user approved the existing ASCII canvas as decoration. Keep continuous animation with a subtle shadcn pause/play button; respect reduced motion.
