@@ -2,6 +2,7 @@
   "name": "energee",
   "version": "1.0.0",
   "private": true,
+  "packageManager": "bun@1.3.10",
   "scripts": {
     "dev": "bun run typecheck && bun run --parallel dev:serve dev:types",
     "dev:serve": "bun --port 8000 ./src/index.html",
