@@ -1,5 +1,9 @@
 # Energee marketing site
 
+One offer: an AI phone agent answers the calls a business misses (after hours,
+weekends, busy moments), books them into its calendar, and texts the owner. Flat
+monthly fee with a 30-day guarantee; the call to action is a free missed-call count.
+
 ## Run locally
 
     bun install
@@ -45,7 +49,6 @@ button spacing.
 
 - src/App.tsx: page composition using shadcn components
 - src/components/ui/: official shadcn component source
-- src/services.ts: service content
 - src/ascii.ts: decorative signal field and observer cleanup
 - src/index.html: HTML entry point and page metadata
 - src/styles.css: Tailwind and shadcn theme tokens
@@ -60,8 +63,8 @@ property types. `skipLibCheck` skips third-party declarations because Radix's
 Select declarations conflict with exact optional properties; application and
 component source remain checked.
 
-Contact opens an email draft with the selected service and optional workflow
-description. The user reviews and sends it in their email app; no backend is
+Contact opens an email draft with the selected business type and a description
+of how calls are handled today. The user reviews and sends it in their email app; no backend is
 required. `contactEmail` in `src/App.tsx` is currently the clearly labeled
 placeholder `hello@energee.example`. Replace it with the approved public address
 before launch. The backend remains deferred.
