@@ -13,7 +13,9 @@ styles directly, with hot reload. A parallel TypeScript watcher reports errors.
     bun run build
 
 The build checks strict types before generating a static site in `dist`.
-Deploy the contents of `dist`; no backend or API keys are required.
+Pushes to `master` on energee/energee.github.io run `.github/workflows/pages.yml`,
+which tests, builds, and publishes `dist` to GitHub Pages at https://energ.ee.
+No backend or API keys are required.
 
 ## UI components
 
@@ -49,6 +51,7 @@ button spacing.
 - src/styles.css: Tailwind and shadcn theme tokens
 - src/site.css: responsive page layout and typography
 - build.ts: Bun static production build
+- .github/workflows/pages.yml: GitHub Pages deploy on push to master
 - tests/smoke.mjs: browser interaction check; exports smoke(page) for a Playwright page or tab.playwright
 - .openai/hosting.json: ignored local Sites deployment identity
 
