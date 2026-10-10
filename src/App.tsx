@@ -65,7 +65,7 @@ export function App() {
             <Play aria-hidden="true" className="hidden size-3.5 group-aria-pressed:block" />
           </Button>
           <div className="intro-line"><span>AI FOR CUSTOMER CALLS &amp; BUSINESS OPERATIONS</span><span>ENERGEE / PITTSBURGH</span></div>
-          <h1>Help customers faster. <br />Give your team <br />time back.</h1>
+          <h1>Help customers faster. <br />Give your team <br /><span>time back.</span></h1>
           <div className="hero-bottom-grid"><div>
             <p className="hero-copy">We build AI phone agents and connected workflows for businesses spending too much time answering routine calls, chasing updates, and moving data between tools. From the customer’s request to the completed task, with your team in control.</p>
             <div className="actions flex flex-wrap justify-center gap-3"><DialogTrigger asChild><Button onClick={rememberContactTrigger} size="lg">Discuss your first workflow</Button></DialogTrigger><Button variant="ghost" size="lg" asChild><a href="#work">See what we’ve built</a></Button></div>

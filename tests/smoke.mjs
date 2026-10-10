@@ -55,8 +55,8 @@ export async function smoke(page) {
   assert(await page.evaluate(() => [...document.querySelectorAll('button,textarea,select,label')].every(element => element.hasAttribute('data-slot'))), 'A UI control does not use shadcn');
 }
 
-// Run with light and dark preferences, or the corresponding explicit root theme.
-export async function themeSmoke(page, scheme) {
+// The site is always dark; checks the dark palette, text contrast, and ghost buttons.
+export async function themeSmoke(page) {
   const styles = await page.evaluate(() => ({
     background: getComputedStyle(document.body).backgroundColor,
     text: [...document.querySelectorAll('h1,h2,.hero-copy,.section-heading>p,.case-row p,.service p,.service .example,.steps p,footer>span')].map(element => getComputedStyle(element).color),
@@ -74,10 +74,10 @@ export async function themeSmoke(page, scheme) {
     return rgb[0] * .2126 + rgb[1] * .7152 + rgb[2] * .0722;
   };
   const background = luminance(styles.background);
-  if (scheme === 'light' ? background < .9 : background > .05) throw new Error(`Wrong ${scheme} background: ${styles.background}`);
+  if (background > .05) throw new Error(`Wrong dark background: ${styles.background}`);
   for (const color of styles.text) {
     const text = luminance(color);
-    if ((Math.max(text, background) + .05) / (Math.min(text, background) + .05) < 4.5) throw new Error(`Unreadable ${scheme} text: ${color}`);
+    if ((Math.max(text, background) + .05) / (Math.min(text, background) + .05) < 4.5) throw new Error(`Unreadable dark text: ${color}`);
   }
   if (!styles.ghost.length || styles.ghost.some(button => button.left !== '24px' || button.right !== '24px' || button.border !== '0px')) throw new Error('Ghost button spacing or border regressed');
 }

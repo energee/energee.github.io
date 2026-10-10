@@ -28,10 +28,15 @@ ask the user for guidance before implementing an alternative. `AGENTS.md`
 records this rule. Page content and layout use semantic HTML and CSS.
 The existing ASCII canvas is approved decoration; it animates continuously,
 respects reduced motion, and has a subtle shadcn pause/play button.
-The page follows the browser/preview light or dark preference. Page content,
-shadcn controls, and the canvas share theme colors; the root also accepts
-`class="light"` / `class="dark"` or `data-theme` overrides. Browser checks export
-`themeSmoke(page, scheme)` to verify both palettes, text contrast, and ghost
+The hero is the focal point: an oversized headline with a lime accent phrase, a faint
+glow behind the text that slowly drifts (CSS only; the pause button and reduced motion
+freeze it), and a brighter, slowly pulsing ASCII field that spans the full viewport width
+(the text stays in the 1440px column). Sections below it
+fade and rise in on scroll (CSS `animation-timeline: view()`; skipped when unsupported
+or under reduced motion).
+The page is always dark (`class="dark"` on `<html>`); there is no light theme.
+Page content, shadcn controls, and the canvas share theme colors. Browser checks
+export `themeSmoke(page)` to verify the dark background, text contrast, and ghost
 button spacing.
 
 ## Files
