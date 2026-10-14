@@ -15,5 +15,8 @@ body{background:var(--background);color:var(--foreground)}header{background:var(
 @supports (animation-timeline:view()){@media(prefers-reduced-motion:no-preference){.section,.cta{animation:rise linear both;animation-timeline:view();animation-range:entry 0% entry 35%}@keyframes rise{from{opacity:0;transform:translateY(40px)}}}}
 /* Above 1440px the hero (and its ASCII canvas) spans the full viewport; padding keeps the text in the 1440px column. */
 @media(min-width:1441px){.hero{max-width:none;padding-inline:calc((100% - 1440px)/2 + 5%)}}
+/* Service and case-study pages: plain headline, steps use h2, MGR title is the page h1. */
+.page-head{padding-bottom:40px}.page-head h1{font-size:clamp(40px,5.2vw,72px);font-weight:600;line-height:1.08;letter-spacing:-.035em;max-width:1000px;margin:24px 0 28px}.lead{font-size:19px;line-height:1.6;max-width:720px;color:var(--muted-foreground)}.steps h2{font-size:23px;line-height:1.25;letter-spacing:-.4px;margin-bottom:17px}.case h1{font-size:34px;line-height:1.2;letter-spacing:-.8px}.case nav.eyebrow{margin-bottom:24px}.page-head nav.eyebrow a,.case nav.eyebrow a{text-decoration:underline;text-underline-offset:3px}
+@media(max-width:650px){.page-head h1{font-size:36px}.lead{font-size:16px}.case h1{font-size:29px}}
 /* Glow drifts slowly; the ASCII pause button (aria-pressed, also set by reduced motion) freezes it. */
 @media(prefers-reduced-motion:no-preference){.hero:after{animation:glow-drift 14s ease-in-out infinite alternate}.hero:has(#motion-toggle[aria-pressed="true"]):after{animation-play-state:paused}@keyframes glow-drift{from{transform:translate(-4%,-2%) scale(1)}to{transform:translate(4%,3%) scale(1.12)}}}
